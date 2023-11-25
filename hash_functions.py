@@ -26,9 +26,12 @@ HASH_FUNCTIONS2 = [
     lambda x: int("".join(str(x) for x in farmhash.hash128(x))),
 ]
 
+for h in HASH_FUNCTIONS2:
+    print(h(name))
+
 first_7_primes = [2, 3, 5, 7, 11, 13, 17]
 
-HASH_FUNCTIONS = [
+HASH_FUNCTIONS3 = [
     lambda x: mmh3.hash(x, 2),
     lambda x: mmh3.hash(x, 3),
     lambda x: mmh3.hash(x, 5),
@@ -37,3 +40,5 @@ HASH_FUNCTIONS = [
     lambda x: mmh3.hash(x, 13),
     lambda x: mmh3.hash(x, 17),
 ]
+
+HASH_FUNCTIONS = [lambda x: farmhash.hash64withseed(x, p) for p in range(7)]
