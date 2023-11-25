@@ -14,8 +14,14 @@ class BloomFilter():
 
         self.num_of_hash_functions = math.ceil((self.size / n) * math.log(2))
 
-        # self.hash_functions = [lambda x: farmhash.hash64withseed(x, seed) for seed in range(self.num_of_hash_functions)]
-        self.hash_functions = [lambda x: mmh3.hash(x, seed) for seed in range(self.num_of_hash_functions)]
+        # If we don't use a default parameter, then the lambda will capture the value 
+        # of s at the time of execution, not at the time of definition
+
+        # MurmurHash3
+        self.hash_functions = [lambda x, seed=s: mmh3.hash(x, seed) for s in range(self.num_of_hash_functions)]
+        
+        # FarmHash
+        # self.hash_functions = [lambda x, seed=s: farmhash.hash64withseed(x, seed) for s in range(self.num_of_hash_functions)]
 
     def insert(self, string):
         for hash_function in self.hash_functions:
@@ -26,5 +32,5 @@ class BloomFilter():
         for hash_function in self.hash_functions:
             index = hash_function(string) % self.size
             if self.bit_array[index] == 0:
-                return "Nope"
+                return "No"
         return "Maybe"
