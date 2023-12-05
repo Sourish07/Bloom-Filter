@@ -30,6 +30,7 @@ theoretical_fp = (1 - (1 - (1 / m)) ** (n * k)) ** k
 print(f"Size of bit array in kilobytes: {m / 8 / 1024}")
 print(f"Number of hash functions: {k}")
 print(f"Number of false positives: {num_of_false_positives}")
+print(f"Desired false positive rate: {desired_fp_rate}")
 # Slightly different from desired_fp_rate because we rounded up when calculating m and k
 print(f"Theoretical false positive rate: {theoretical_fp}")
 print(f"Proportion of false positives: {actual_fp}")
